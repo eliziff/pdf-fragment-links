@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Icon Generator</title>
+<style>
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: #0b1724;
+    color: #e8f0ff;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  h2 { color: #2196f3; }
+  .canvas-container {
+    display: flex;
+    gap: 2rem;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .canvas-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  canvas {
+    border: 2px solid #1f3a5a;
+    border-radius: 8px;
+    background: white;
+  }
+  button {
+    background: #2196f3;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+  }
+  button:hover {
+    background: #4fa9ff;
+  }
+  .info {
+    color: #9db2cc;
+    font-size: 0.85rem;
+    max-width: 600px;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+</style>
+</head>
+<body>
+<h2>Fragment Link Builder - Icon Generator</h2>
+<p class="info">Click the buttons below to download the extension icons. Save them in the extension folder.</p>
+
+<div class="canvas-container">
+  <div class="canvas-item">
+    <canvas id="icon16" width="16" height="16"></canvas>
+    <span>16x16</span>
+    <button onclick="downloadIcon('icon16', 'icon16.png')">Download</button>
+  </div>
+  <div class="canvas-item">
+    <canvas id="icon48" width="48" height="48"></canvas>
+    <span>48x48</span>
+    <button onclick="downloadIcon('icon48', 'icon48.png')">Download</button>
+  </div>
+  <div class="canvas-item">
+    <canvas id="icon128" width="128" height="128"></canvas>
+    <span>128x128</span>
+    <button onclick="downloadIcon('icon128', 'icon128.png')">Download</button>
+  </div>
+</div>
+
+<script>
+// Draw icon on canvas
+function drawIcon(canvasId, size) {
+  const canvas = document.getElementById(canvasId);
+  const ctx = canvas.getContext('2d');
+
+  // Clear canvas
+  ctx.clearRect(0, 0, size, size);
+
+  // Background gradient
+  const gradient = ctx.createLinearGradient(0, 0, size, size);
+  gradient.addColorStop(0, '#2196f3');
+  gradient.addColorStop(1, '#1976d2');
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, size, size);
+
+  // Draw stylized "F" for Fragment
+  ctx.fillStyle = 'white';
+  ctx.font = `bold ${size * 0.6}px Arial`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('F', size / 2, size / 2);
+
+  // Add a small link icon indicator (chain link symbol)
+  if (size >= 48) {
+    ctx.strokeStyle = '#fff';
+    ctx.lineWidth = size / 16;
+    ctx.lineCap = 'round';
+
+    // Draw small chain link in corner
+    const linkSize = size / 6;
+    const linkX = size - linkSize * 1.5;
+    const linkY = linkSize * 0.5;
+
+    // Left part of chain
+    ctx.beginPath();
+    ctx.arc(linkX - linkSize/3, linkY + linkSize/2, linkSize/3, Math.PI/4, Math.PI * 1.25);
+    ctx.stroke();
+
+    // Right part of chain
+    ctx.beginPath();
+    ctx.arc(linkX + linkSize/3, linkY + linkSize/2, linkSize/3, -Math.PI * 0.75, Math.PI/4);
+    ctx.stroke();
+  }
+}
+
+// Download canvas as PNG
+function downloadIcon(canvasId, filename) {
+  const canvas = document.getElementById(canvasId);
+  const link = document.createElement('a');
+  link.download = filename;
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+}
+
+// Generate all icons on page load
+window.onload = function() {
+  drawIcon('icon16', 16);
+  drawIcon('icon48', 48);
+  drawIcon('icon128', 128);
+};
+</script>
+</body>
+</html>

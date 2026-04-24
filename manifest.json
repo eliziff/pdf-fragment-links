@@ -1,0 +1,46 @@
+{
+  "manifest_version": 3,
+  "name": "Fragment Link Builder",
+  "version": "1.5.0",
+  "description": "Create text fragment links from clipboard content with Ctrl+Shift+F or context menu",
+  "permissions": [
+    "clipboardRead",
+    "clipboardWrite",
+    "contextMenus",
+    "activeTab",
+    "scripting",
+    "tabs",
+    "storage"
+  ],
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*",
+    "file:///*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    },
+    "default_title": "Create fragment link from clipboard (Ctrl+Shift+F)",
+    "default_popup": "popup.html"
+  },
+  "commands": {
+    "create-fragment-link": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+F",
+        "mac": "Command+Shift+F"
+      },
+      "description": "Create fragment link from clipboard"
+    }
+  },
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  }
+}

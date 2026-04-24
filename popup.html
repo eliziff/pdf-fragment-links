@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fragment Link Builder</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <button id="buildLinkBtn" class="build-btn">Build Link</button>
+
+    <div class="options-section">
+      <button id="optionsToggle" class="options-toggle">
+        <span>Options</span>
+        <svg class="chevron" width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="3 4.5 6 7.5 9 4.5"></polyline>
+        </svg>
+      </button>
+
+      <div id="optionsContent" class="options-content">
+        <!-- Option 1: Just URL -->
+        <label class="option-item">
+          <input type="radio" name="linkFormat" value="justUrl" checked>
+          <span class="option-label">Just copy URL</span>
+        </label>
+
+        <!-- Option 2: Clipboard text as hyperlink -->
+        <label class="option-item">
+          <input type="radio" name="linkFormat" value="clipboardText">
+          <span class="option-label">Use clipboard text</span>
+        </label>
+        <div class="sub-options" id="clipboardTextOptions">
+          <label class="checkbox-option">
+            <input type="checkbox" id="clipboardQuotes">
+            <span>Wrap in quotes</span>
+          </label>
+        </div>
+
+        <!-- Option 3: Clipboard text + [Link] -->
+        <label class="option-item">
+          <input type="radio" name="linkFormat" value="withLinkTag">
+          <span class="option-label">Use clipboard text + Append [Link]</span>
+        </label>
+        <div class="sub-options" id="linkTagOptions">
+          <label class="checkbox-option">
+            <input type="checkbox" id="withQuotes">
+            <span>Wrap in quotes</span>
+          </label>
+        </div>
+
+        <!-- Option 4: Custom text -->
+        <label class="option-item">
+          <input type="radio" name="linkFormat" value="customText">
+          <span class="option-label">Custom text</span>
+        </label>
+        <div class="custom-text-section" id="customTextSection">
+          <input type="text" id="customTextInput" placeholder="Enter link text..." />
+          <div class="format-controls">
+            <button class="format-btn" data-format="bold" title="Bold"><strong>B</strong></button>
+            <button class="format-btn" data-format="italic" title="Italic"><em>I</em></button>
+            <button class="format-btn" data-format="underline" title="Underline"><u>U</u></button>
+            <input type="color" id="textColor" value="#000000" title="Text color">
+          </div>
+        </div>
+
+        <button id="resetBtn" class="reset-btn">Reset to Default</button>
+      </div>
+    </div>
+
+    <div id="statusMessage" class="status-message"></div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
